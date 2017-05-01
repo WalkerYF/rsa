@@ -22,7 +22,7 @@ def quick_power2(b, e):
 
 # ax === 1 (mod p)
 # 1 = ax + py
-# 扩展欧几里得算法，默认认为两s数互质
+# 扩展欧几里得算法，默认认为两数互质
 def extended_euler(a, p):
     if (p == 1):
         return (0, 1)
