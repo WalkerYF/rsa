@@ -1,5 +1,10 @@
-# 快速幂模
+# -*- coding: utf-8 -*-
+
+
 def quick_power(b, e, p):
+    '''
+    快速幂模
+    '''
     ans = 1
     while(e > 1):
         if (e % 2 != 0):
@@ -9,8 +14,10 @@ def quick_power(b, e, p):
     return (ans * b) % p
 
 
-# 快速幂， 不模
 def quick_power2(b, e):
+    '''
+    快速幂， 不模
+    '''
     ans = 1
     while(e > 1):
         if (e % 2 != 0):
@@ -20,10 +27,12 @@ def quick_power2(b, e):
     return ans * b
 
 
-# ax === 1 (mod p)
-# 1 = ax + py
-# 扩展欧几里得算法，默认认为两数互质
 def extended_euler(a, p):
+    '''
+    ax === 1 (mod p)
+    1 = ax + py
+    扩展欧几里得算法，默认认为两数互质
+    '''
     if (p == 1):
         return (0, 1)
     (x1, y1) = extended_euler(p, a % p)
@@ -97,3 +106,11 @@ def decode(pri_key, com_key, num_content):
         after_content.append(result)
     return after_content
 
+
+# def d(a):
+#     u = a.decode("utf-8")
+#     return u
+
+
+# a = input()
+# print(d(a))
