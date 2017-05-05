@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
 # 1. 生成公钥和秘钥
 # 2. 加密信息（输入公钥，进行加密）（密文输出到文件）
 # 3. 解密（输入秘钥，进行解密）（输入输出均重定向到文件）
 import test
+import codecs
 
 
 print("---------------------------------------")
@@ -12,7 +14,7 @@ print("d: 解密信息，明文显示在显示屏上")
 print("q：退出系统")
 print("---------------------------------------")
 
-choice = input('please enter your choice.\n')
+choice = input('please enter your choice.')
 while (choice != 'q'):
     if (choice == "g"):
         key = test.generate()
@@ -25,12 +27,12 @@ while (choice != 'q'):
         file_pri_key.write("%d\n%d" % (key[2], key[1]))
         file_pri_key.close()
 
-        print("your public key is: %d\n" % key[0])
-        print("your common key is: %d\n" % key[1])
-        print("your private key is: %d\n" % key[2])
+        print("your public key is: %d" % key[0])
+        print("your common key is: %d" % key[1])
+        print("your private key is: %d" % key[2])
 
     elif (choice == "e"):
-        print("please put your public key in file:'./id_rsa.pub'\n")
+        print("please put your public key in file:'./id_rsa.pub'")
         # 读入公钥（两行，第一行是e， 第二行是n）
         file_key = open("./id_rsa.pub", 'r')
         pub_key = int(file_key.readline())
@@ -38,28 +40,30 @@ while (choice != 'q'):
         file_key.close()
         # 读入明文
         ori_content = input("please enter the content you want to encrypt\n")
+        # file_content = open("./1ori_content", 'r')
+        # ori_content = file_content.read().decode("utf-8")
         # 明文转换为数字信息
         num_content = list()
         for i in ori_content:
-            num_content.append(ord(i))
+            num_content.append(ord(i))  # 需要修改
         # 数字信息加密，加密后的内容以列表形式存放在after_content中
         after_content = test.encrypt(pub_key, com_key, num_content)
         # 密文存放到文件中，并输出到屏幕
-        file_ciphertext = open("./ciphertext", "w")
+        file_ciphertext = open("./2ciphertext", "w")
         for i in after_content:
             file_ciphertext.write("%d " % i)
         file_ciphertext.close()
         print(after_content)
 
     elif (choice == "d"):
-        print("please put your private key in file:'./id_rsa'\n")
+        print("please put your private key in file:'./id_rsa'")
         # 读入密钥（两行，第一行是d， 第二行是n）
-        file_key = open("./id_rsa", 'r') 
+        file_key = open("./id_rsa", 'r')
         pri_key = int(file_key.readline())
         com_key = int(file_key.readline())
         file_key.close()
         # 读入密文
-        file_ciphertext = open("./ciphertext", "r")
+        file_ciphertext = open("./2ciphertext", "r")
         num_content = map(int, file_ciphertext.readline().split())
         file_ciphertext.close()
         # 数字信息解密，加密后的内容以数字列表形式存放在num_content中
@@ -67,8 +71,13 @@ while (choice != 'q'):
         # 数字转换为明文
         ori_content = list()
         for i in num_content:
-            ori_content.append(chr(i))
+            ori_content.append(chr(i % 65535))  # 需要修改
         # 明文输出到屏幕
         print(ori_content)
+        # 明文输出到文件 # 存在问题 不能以utf-8编码格式存到文件
+        # file_after = open("./3after_content", 'w')
+        # for i in ori_content:
+        #     file_after.write(i)
+        #     file_after.flush()
 
-    choice = input('please enter your choice.\n')
+    choice = input('please enter your choice.')
