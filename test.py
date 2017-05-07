@@ -45,8 +45,9 @@ def extended_euler(a, p):
 # 中间有一个循环确保求出大于零的逆元
 def Modular_Inverse(a, p):
     (x, y) = extended_euler(a, p)
-    while (x < 0):
-        x = x + p
+    #确保x > 0
+    while x < 0:
+    	x += p
     return x
 
 
@@ -68,7 +69,7 @@ def generate():
     for i in range(0, 3):
         number = int(file_primeNumber.readline())
         prime_number.append(number)
-    print(prime_number)
+    #print(prime_number)
     q = prime_number[0]
     p = prime_number[1]
     # 得到两个质数 p, q
@@ -79,7 +80,7 @@ def generate():
     e = prime_number[2]
     # 求d, d是e在模k下的逆元
     d = Modular_Inverse(e, k)
-    print(e, d, k)
+    print("e: {}\nd: {}\nk: {}\n".format(e, d, k))
     return (e, n, d)
     # return (2987, 3937, 143)
     # return (17, 3233, 2753)
