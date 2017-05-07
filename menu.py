@@ -49,8 +49,8 @@ while (choice != 'q'):
         file_key.close()
         # 读入明文
         #ori_content = input("please enter the content you want to encrypt\n")
-        file_content = open("1ori_content", 'r')
-        ori_content = file_content.read()
+        file_content = open("1ori_content", 'br')
+        ori_content = file_content.read().decode('utf-8')
         # 明文转换为数字信息
         binary_data = ori_content.encode('utf-8')
         num_content = []
