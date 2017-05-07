@@ -96,9 +96,9 @@ while (choice != 'q'):
         # 明文输出到屏幕
         print(ori_content)
         # 明文输出到文件 # 存在问题 不能以utf-8编码格式存到文件
-        file_after = open("3after_content", 'w')
+        file_after = open("3after_content", 'bw')
         for s in ori_content:
-        	file_after.write(s)
+        	file_after.write(s.encode('utf-8'))
         file_after.close()
         
 
